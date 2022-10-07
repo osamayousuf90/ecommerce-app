@@ -35,11 +35,8 @@ const handleAdd = (res) => {
   // total cost
   const totalCost = (res) => {
     setStateUpdate(!stateUpdate)
-    console.log("res =====>", res)
-    const fIndex = value.findIndex((item) => item?.name === res?.name)
     const a = value.reduce((accum, curr) => {
-    var quantity = value[fIndex]?.quantity 
-    return accum + curr.price * quantity
+    return accum + curr.price * curr.quantity
     }, 0)
     setCost(a)
   }
@@ -60,9 +57,9 @@ const handleAdd = (res) => {
 
 
 
-  useEffect(() => {
-   totalCost()
-  }, [value])
+  // useEffect(() => {
+  //  totalCost()
+  // }, [value])
 
 
 
