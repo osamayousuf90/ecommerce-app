@@ -27,9 +27,9 @@ const handleAdd = (res) => {
     const fIndex = value.findIndex((item) => item?.name === res?.name)
     var a = value[fIndex].quantity += 1  
     var price = res?.price * a  
-    totalCost(price)
+    // totalCost(price)
     setStateUpdate(!stateUpdate)
-    console.log("price ====>", price);
+    console.log("price add ====>", price);
   }
 
 
@@ -37,7 +37,7 @@ const handleAdd = (res) => {
   // total cost
   const totalCost = (price) => {
     const a = value.reduce((accum, curr) => {
-    return accum += price
+    return accum += curr.price
     }, 0)
 
     setCost(a)
@@ -54,7 +54,8 @@ const handleAdd = (res) => {
     } else {
     var a = value[fIndex].quantity -= 1          
     var price = res?.price * a  
-    totalCost(price)
+    console.log("less price ====>", price)
+    // totalCost(price)
     setStateUpdate(!stateUpdate)     
 
     }
