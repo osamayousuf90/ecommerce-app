@@ -24,21 +24,22 @@ const handleAdd = (res) => {
 
   // handle add quantity
   const handleAddQuantity = (res) => {
+    setStateUpdate(!stateUpdate)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
     var quantity = value[fIndex].quantity += 1  
     var price = res?.price * quantity  
-    setStateUpdate(!stateUpdate)
-    totalCost(res)
   }
 
 
   
   // total cost
   const totalCost = (res) => {
-    const a = value.reduce((accum, curr) => {
+    setStateUpdate(!stateUpdate)
+    console.log("res =====>", res)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
+    const a = value.reduce((accum, curr) => {
     var quantity = value[fIndex]?.quantity 
-    return accum += curr.price * quantity
+    return accum + curr.price * quantity
     }, 0)
     setCost(a)
   }
@@ -47,17 +48,13 @@ const handleAdd = (res) => {
 
   // handle decrease quantity
   const handleRemoveQuantity = (res) => {
-    const fIndex = value.findIndex((item) => item?.name === res?.name)
     setStateUpdate(!stateUpdate)
+    const fIndex = value.findIndex((item) => item?.name === res?.name)
     if(value[fIndex].quantity === 1) {
       return false
     } else {
     var quantity = value[fIndex].quantity -= 1          
     var price = res?.price * quantity  
-    totalCost(price)
-    totalCost(res)
-    setStateUpdate(!stateUpdate)     
-
     }
   }
 
@@ -95,10 +92,10 @@ const handleAdd = (res) => {
       <br />
       <h2>Cart List</h2>
     
-      {value.map((res, index) => {
+      {value.map((res) => {
         return (
           <>
-            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => handleAddQuantity(res)}>+</button> <p>   {res?.quantity}</p> <button onClick={() => handleRemoveQuantity(res)}>-</button> </p>  
+            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => { handleAddQuantity(res); totalCost(res);  }}>+</button> <p>   {res?.quantity}</p> <button onClick={() => { handleRemoveQuantity(res);  totalCost(res)  }}>-</button> </p>  
           </>
          )
       })} 
