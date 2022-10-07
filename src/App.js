@@ -7,7 +7,7 @@ import { useState , useEffect } from 'react';
 function App() {
   const [value, setValue] = useState([]);
   const [cost, setCost] = useState();
-  const [stateUpdate , setStateUpdate] = useState()
+  const [stateUpdate, setStateUpdate] = useState()
 
  
     // handle add
@@ -25,21 +25,21 @@ const handleAdd = (res) => {
   // handle add quantity
   const handleAddQuantity = (res) => {
     const fIndex = value.findIndex((item) => item?.name === res?.name)
-    var a = value[fIndex].quantity += 1  
-    var price = res?.price * a  
-    // totalCost(price)
+    var quantity = value[fIndex].quantity += 1  
+    var price = res?.price * quantity  
     setStateUpdate(!stateUpdate)
-    console.log("price add ====>", price);
+    totalCost(res)
   }
 
 
   
   // total cost
-  const totalCost = (price) => {
+  const totalCost = (res) => {
     const a = value.reduce((accum, curr) => {
-    return accum += curr.price
+    const fIndex = value.findIndex((item) => item?.name === res?.name)
+    var quantity = value[fIndex]?.quantity 
+    return accum += curr.price * quantity
     }, 0)
-
     setCost(a)
   }
 
@@ -52,18 +52,21 @@ const handleAdd = (res) => {
     if(value[fIndex].quantity === 1) {
       return false
     } else {
-    var a = value[fIndex].quantity -= 1          
-    var price = res?.price * a  
-    console.log("less price ====>", price)
-    // totalCost(price)
+    var quantity = value[fIndex].quantity -= 1          
+    var price = res?.price * quantity  
+    totalCost(price)
+    totalCost(res)
     setStateUpdate(!stateUpdate)     
 
     }
   }
 
+
+
   useEffect(() => {
    totalCost()
   }, [value])
+
 
 
 
@@ -80,7 +83,6 @@ const handleAdd = (res) => {
           <>
             <div style={{display : "flex", flexDirection: "row"}}>
               <h2>{res?.name} {res?.price} </h2> { value.some((item) => item?.name === res?.name) ? <button onClick={() => handleRemove(res)}>Remove</button> : <button onClick={() => { handleAdd(res)}}>Add To Cart</button> }   
-               
             </div>
           </>
         )
@@ -103,7 +105,7 @@ const handleAdd = (res) => {
       
       <br /><br />
       <h2>Total Cost</h2>
-      <p>{cost}$</p>
+      <p>{cost}</p>
     </>
   );
 }
