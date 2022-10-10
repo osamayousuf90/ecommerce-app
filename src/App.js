@@ -26,17 +26,16 @@ const handleAdd = (res) => {
   const handleAddQuantity = (res) => {
     setStateUpdate(!stateUpdate)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
-    var quantity = value[fIndex].quantity += 1  
-    var price = res?.price * quantity  
+    value[fIndex].quantity += 1  
   }
 
 
   
   // total cost
-  const totalCost = (res) => {
+  const totalCost = () => {
     setStateUpdate(!stateUpdate)
     const a = value.reduce((accum, curr) => {
-    return accum + curr.price * curr.quantity
+      return accum + ( curr.price * curr.quantity );
     }, 0)
     setCost(a)
   }
@@ -50,16 +49,15 @@ const handleAdd = (res) => {
     if(value[fIndex].quantity === 1) {
       return false
     } else {
-    var quantity = value[fIndex].quantity -= 1          
-    var price = res?.price * quantity  
+     value[fIndex].quantity -= 1          
     }
   }
 
 
 
-  // useEffect(() => {
-  //  totalCost()
-  // }, [value])
+  useEffect(() => {
+   totalCost()
+  }, [value])
 
 
 
