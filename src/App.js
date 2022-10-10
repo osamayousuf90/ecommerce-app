@@ -48,7 +48,6 @@ const handleAdd = (res) => {
 
   // handle decrease quantity
   const handleRemoveQuantity = (res) => {
-    setStateUpdate(!stateUpdate)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
     if(value[fIndex].quantity === 1) {
       const a = value.filter((item) => {
@@ -59,7 +58,6 @@ const handleAdd = (res) => {
     value[fIndex].quantity -= 1  
     totalCost()  
     setStateUpdate(!stateUpdate)
-      
     }
   }
 
