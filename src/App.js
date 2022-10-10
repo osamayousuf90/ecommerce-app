@@ -13,7 +13,7 @@ function App() {
     // handle add
 const handleAdd = (res) => {
   setValue([...value, res]);  
-  totalCost()
+  totalCost();
   setStateUpdate(!stateUpdate)
 
 }
