@@ -107,7 +107,7 @@ const handleAdd = (res) => {
       
       <br /><br />
       <h2>Total Cost</h2>
-      <p>{cost}</p>
+      <p>{cost}$</p>
     </>
   );
 }
