@@ -84,7 +84,7 @@ const handleAdd = (res) => {
         return (
           <>
             <div style={{display : "flex", flexDirection: "row"}}>
-              <h2>{res?.name} {res?.price} </h2> { value.some((item) => item?.name === res?.name) ? <button onClick={() => handleRemove(res) }>Remove</button> : <button onClick={() => { handleAdd(res) }}>Add To Cart</button> }   
+              <h2>{res?.name} {res?.price} </h2> { value.find((item) => item?.name === res?.name) ? <button onClick={() => handleRemove(res) }>Remove</button> : <button onClick={() => { handleAdd(res) }}>Add To Cart</button> }   
             </div>
           </>
         )
