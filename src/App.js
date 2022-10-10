@@ -51,7 +51,10 @@ const handleAdd = (res) => {
     setStateUpdate(!stateUpdate)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
     if(value[fIndex].quantity === 1) {
-      return false
+      const a = value.filter((item) => {
+       return item?.name !== res?.name
+      })
+      setValue(a)
     } else {
     value[fIndex].quantity -= 1  
     totalCost()  
