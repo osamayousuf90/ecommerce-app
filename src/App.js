@@ -13,6 +13,9 @@ function App() {
     // handle add
 const handleAdd = (res) => {
   setValue([...value, res]);  
+  totalCost()
+  setStateUpdate(!stateUpdate)
+
 }
   
   // handle remove
@@ -24,20 +27,21 @@ const handleAdd = (res) => {
 
   // handle add quantity
   const handleAddQuantity = (res) => {
-    setStateUpdate(!stateUpdate)
     const fIndex = value.findIndex((item) => item?.name === res?.name)
     value[fIndex].quantity += 1  
+    totalCost()
+    setStateUpdate(!stateUpdate)
   }
 
 
   
   // total cost
   const totalCost = () => {
-    setStateUpdate(!stateUpdate)
     const a = value.reduce((accum, curr) => {
       return accum + ( curr.price * curr.quantity );
     }, 0)
     setCost(a)
+    setStateUpdate(!stateUpdate)
   }
 
 
@@ -49,7 +53,10 @@ const handleAdd = (res) => {
     if(value[fIndex].quantity === 1) {
       return false
     } else {
-     value[fIndex].quantity -= 1          
+    value[fIndex].quantity -= 1  
+    totalCost()  
+    setStateUpdate(!stateUpdate)
+      
     }
   }
 
@@ -74,7 +81,7 @@ const handleAdd = (res) => {
         return (
           <>
             <div style={{display : "flex", flexDirection: "row"}}>
-              <h2>{res?.name} {res?.price} </h2> { value.some((item) => item?.name === res?.name) ? <button onClick={() => handleRemove(res)}>Remove</button> : <button onClick={() => { handleAdd(res)}}>Add To Cart</button> }   
+              <h2>{res?.name} {res?.price} </h2> { value.some((item) => item?.name === res?.name) ? <button onClick={() => handleRemove(res) }>Remove</button> : <button onClick={() => { handleAdd(res) }}>Add To Cart</button> }   
             </div>
           </>
         )
@@ -90,7 +97,7 @@ const handleAdd = (res) => {
       {value.map((res) => {
         return (
           <>
-            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => { handleAddQuantity(res); totalCost();  }}>+</button> <p>   {res?.quantity}</p> <button onClick={() => { handleRemoveQuantity(res);  totalCost(res)  }}>-</button> </p>  
+            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => { handleAddQuantity(res) }}>+</button> <p>   {res?.quantity}</p> <button onClick={() => { handleRemoveQuantity(res) }}>-</button> </p>  
           </>
          )
       })} 
