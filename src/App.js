@@ -90,7 +90,7 @@ const handleAdd = (res) => {
       {value.map((res) => {
         return (
           <>
-            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => { handleAddQuantity(res); totalCost(res);  }}>+</button> <p>   {res?.quantity}</p> <button onClick={() => { handleRemoveQuantity(res);  totalCost(res)  }}>-</button> </p>  
+            <p style={{ display: "flex" }}>{res?.name} {res?.price}$ <button onClick={() => { handleAddQuantity(res) }}>+</button> <p>   {res?.quantity}</p> <button onClick={() => { handleRemoveQuantity(res) }}>-</button> </p>  
           </>
          )
       })} 
