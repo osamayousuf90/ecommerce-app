@@ -1,0 +1,197 @@
+.searchBar {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: 100px;
+    align-items: center;
+
+    &_inner {
+        position: relative;
+        display: flex;
+        height: 80px;
+        padding: 10px 50px;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 20px;
+
+        
+        input {
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            height: 40px;
+            background-color:transparent;
+            width: 200px;
+            border-radius: 10px;
+            border-bottom: 1px solid grey;
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.178);
+        }
+    }
+
+    &_dateFilters {
+        display: flex;
+        width: 50%;
+        position: relative;
+    }
+
+    &_datePick {
+      position: relative;
+
+        p {
+            position: absolute;
+            bottom: 45px;
+            left: 8px;
+            color: grey;
+            font-size: 12px;
+        }
+
+        input {
+            position: relative;
+            width: 60%;
+            margin: 0px 5px;
+            height: 20px;
+            font-weight: 400;
+            border:  1px solid rgb(221, 221, 221);
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+    &_selector {
+        position: relative;
+        display: flex;
+        justify-content: space-evenly;
+        width: 50%;
+
+        button {
+            background-color: #D54D59;
+            height: 40px;
+            width: 200px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+          }
+    
+          button:hover {
+            background-color: #ec2233;
+          }
+
+        select {
+            cursor: pointer;
+            position: relative;
+            width: 100px;
+            height: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.178);
+            outline: none;
+            border-radius: 10px;   
+        }
+
+        .fa-arrow-left-long {
+            margin-right: 20px;
+        }
+    }
+
+
+    &_blogSelector {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+
+
+        select {
+            cursor: pointer;
+            position: relative;
+            width: 100px;
+            height: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.178);
+            outline: none;
+            border-radius: 10px;   
+        }
+    }
+
+
+    @media (max-width: 1200px) {
+        &_inner {
+            position: relative;
+            display: flex;
+            height: 80px;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            // margin: 0px 50px;
+            padding: 0px 0px;
+    
+            input {
+                position: relative;
+                padding: 10px 20px;
+                border: none;
+                outline: none;
+                height: 20px;
+                background-color: transparent;
+                width: 200px;
+                border-radius: 5px;
+                color: black;
+                font-size: 14px;
+                font-weight: 540;
+                border: 1px solid rgba(0, 0, 0, 0.178);
+            }
+        }
+
+        &_dateFilters {
+            display: flex;
+            width: 50%;
+            position: relative;
+        }
+
+        &_selector {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            width: 50%;
+
+             
+            select {
+                cursor: pointer;
+                position: relative;
+                width: 100px;
+                height: 30px;
+                border: 1px solid rgba(0, 0, 0, 0.178);
+                outline: none;
+                border-radius: 10px;   
+                right: 20px;
+            }
+        }
+
+
+        &_blogSelector {
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+    
+    
+            select {
+                cursor: pointer;
+                position: relative;
+                width: 100px;
+                height: 40px;
+                border: 1px solid rgba(0, 0, 0, 0.178);
+                outline: none;
+                border-radius: 10px;   
+            }
+        }
+    }
+
+
+
+
+
+}

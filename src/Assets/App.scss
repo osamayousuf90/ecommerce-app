@@ -2,16 +2,38 @@
 
 @import url("../Assets/Pages/SignUp/_SignUp.scss");
 @import "~bootstrap/scss/bootstrap";
+@import url("../Assets/Pages/_dashboard.scss");
+@import url("../Assets/Components/_table.scss");
+@import url("../Assets/Components/_sidebar.scss");
+@import url("../Assets/Components/_searchBar.scss");
+@import url("../Assets/Components/_addProject.scss");
+@import url("../Assets/Components/_Detail.scss");
+@import url("../Assets/Components/_rejectPopup.scss");
 
 
+// Admin
+
+@import url("./../Assets/Admin/Admin.scss");
+
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
 
 * {
-    padding: 0;
-    margin: 0;
     text-decoration: none;
     list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
+
 
 h2 {
     cursor: pointer;

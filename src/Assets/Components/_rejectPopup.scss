@@ -1,0 +1,125 @@
+.rejectPopup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    top: 0%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    z-index: 999;
+
+
+    &_active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        position: absolute;
+        transform: scale(1);
+        right: 0%;
+        top: 0%;
+        opacity:1;
+        transition: opacity 1000ms ease-in-out, right  700ms ease-in-out, transform 700ms ease-in;
+    }        
+    
+    &_inactive {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        position: absolute;
+        top: 0%;
+        right: -100%;
+        opacity:1;
+        transform: scale(0.5);
+        transition: opacity 1000ms ease-in-out, right  1000ms ease-in-out, transform 1000ms ease-out;
+    }
+
+    &_inner {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 380px;
+        height: 150px;
+        background-color: rgb(214, 214, 214);
+        border-radius: 10px;
+        padding: 30px 10px;
+
+        .fa-xmark {
+            color: grey;
+            font-size: 25px;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        h5 {
+            position: relative;
+            left: 15px;
+            padding: 10px 0px;
+            font-size: 14px;
+            color: rgb(34, 34, 34);
+            font-weight: 480 !important;
+        }
+    }
+
+    &_btns {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        justify-content: flex-end;
+        height: 100px;
+        width: 100%;
+        position: relative;
+        right: 20px;
+        top: 10px;
+        font-weight: 600;
+
+
+        button {
+            height: 35px;
+            width: 90px;
+            background-color: #D54D59;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            margin: 0px 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            z-index: 999 !important;
+        }
+
+        .fa-trash-can {
+            margin-right: 10px;
+        }
+
+        button:nth-last-child(1) {
+            height: 35px;
+            width: 90px;
+            background-color:transparent;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            margin: 0px 5px;
+            cursor: pointer;
+            color: rgb(95, 95, 95);
+            font-weight: 600;
+            border: 1px solid grey;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: rgba(180, 2, 2, 0.774);
+        }
+
+        button:nth-last-child(1):hover {
+            background-color: rgb(216, 216, 216); 
+         }
+    }
+}

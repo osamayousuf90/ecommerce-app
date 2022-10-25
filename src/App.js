@@ -3,82 +3,85 @@ import { BrowserRouter , Routes , Route } from 'react-router-dom';
 import SignUp from './Pages/SignUp/SignUp';
 import API from './API/API';
 import { useState , useEffect } from 'react';
+import SignIn from './Pages/SignUp/SignIn';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
-  const [value, setValue] = useState([]);
-  const [cost, setCost] = useState();
-  const [stateUpdate, setStateUpdate] = useState()
+//   const [value, setValue] = useState([]);
+//   const [cost, setCost] = useState();
+//   const [stateUpdate, setStateUpdate] = useState()
 
  
-    // handle add
-const handleAdd = (res) => {
-  setValue([...value, res]);  
-  totalCost();
-  setStateUpdate(!stateUpdate)
-
-}
+//     // handle add
+// const handleAdd = (res) => {
+//   setValue([...value, res]);  
+//   totalCost();
+//   setStateUpdate(!stateUpdate)
+// }
   
-  // handle remove
-  const handleRemove = (res) => {
-    const a = value.filter((item) => item?.name !== res?.name)      
-    setValue(a)
-  }  
+//   // handle remove
+//   const handleRemove = (res) => {
+//     const a = value.filter((item) => item?.name !== res?.name)      
+//     setValue(a)
+//   }  
 
 
-  // handle add quantity
-  const handleAddQuantity = (res) => {
-    const fIndex = value.findIndex((item) => item?.name === res?.name)
-    value[fIndex].quantity += 1  
-    totalCost()
-    setStateUpdate(!stateUpdate)
-  }
+//   // handle add quantity
+//   const handleAddQuantity = (res) => {
+//     const fIndex = value.findIndex((item) => item?.name === res?.name)
+//     value[fIndex].quantity += 1  
+//     totalCost()
+//     setStateUpdate(!stateUpdate)
+//   }
 
 
   
-  // total cost
-  const totalCost = () => {
-    const a = value.reduce((accum, curr) => {
-      return accum + ( curr.price * curr.quantity );
-    }, 0)
-    setCost(a)
-    setStateUpdate(!stateUpdate)
-  }
+//   // total cost
+//   const totalCost = () => {
+//     const a = value.reduce((accum, curr) => {
+//       return accum + ( curr.price * curr.quantity );
+//     }, 0)
+//     setCost(a)
+//     setStateUpdate(!stateUpdate)
+//   }
 
 
 
-  // handle decrease quantity
-  const handleRemoveQuantity = (res) => {
-    const fIndex = value.findIndex((item) => item?.name === res?.name)
-    if(value[fIndex].quantity === 1) {
-      const a = value.filter((item) => {
-       return item?.name !== res?.name
-      })
-      setValue(a)
-    } else {
-    value[fIndex].quantity -= 1  
-    totalCost()  
-    setStateUpdate(!stateUpdate)
-    }
-  }
+//   // handle decrease quantity
+//   const handleRemoveQuantity = (res) => {
+//     const fIndex = value.findIndex((item) => item?.name === res?.name)
+//     if(value[fIndex].quantity === 1) {
+//       const a = value.filter((item) => {
+//        return item?.name !== res?.name
+//       })
+//       setValue(a)
+//     } else {
+//     value[fIndex].quantity -= 1  
+//     totalCost()  
+//     setStateUpdate(!stateUpdate)
+//     }
+//   }
 
 
 
-  useEffect(() => {
-   totalCost()
-  }, [value])
+//   useEffect(() => {
+//    totalCost()
+//   }, [value])
 
 
 
 
   return (
     <>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignUp/>}></Route>
+          <Route path="/" element={<SignUp />}></Route>
+          <Route path="/signIn" element={<SignIn />} ></Route>
+          <Route path="/admin" element={<Dashboard/>}></Route>
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
       
-      {API?.map((res) => {
+      {/* {API?.map((res) => {
         return (
           <>
             <div style={{display : "flex", flexDirection: "row"}}>
@@ -105,7 +108,7 @@ const handleAdd = (res) => {
       
       <br /><br />
       <h2>Total Cost</h2>
-      <p>{cost}$</p>
+      <p>{cost}$</p> */}
     </>
   );
 }
