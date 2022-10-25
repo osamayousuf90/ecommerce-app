@@ -1,9 +1,19 @@
 import React from 'react'
 import { TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth, db } from "../../Firebase/firebase"
+import { useState } from 'react'
 
 const SignIn = () => {
-   const navigate = useNavigate()
+  const navigate = useNavigate()
+  
+
+  // handle sign in
+  const handleSignIn = () => {
+    
+  }
+  
 
   return (
     <div> 

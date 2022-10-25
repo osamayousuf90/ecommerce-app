@@ -1,9 +1,9 @@
 import './Assets/App.scss';
 import { BrowserRouter , Routes , Route } from 'react-router-dom';
-import SignUp from './Pages/SignUp/SignUp';
+import SignUp from './Pages/SignUp&SingIn/SignUp';
 import API from './API/API';
 import { useState , useEffect } from 'react';
-import SignIn from './Pages/SignUp/SignIn';
+import SignIn from './Pages/SignUp&SingIn/SignIn';
 import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
