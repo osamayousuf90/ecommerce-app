@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../Firebase/firebase"
 import { useState } from 'react'
+import { addDoc , collection } from 'firebase/firestore' 
 
 const SignUp = () => {
   const navigate = useNavigate()
-  const [state, setState] = useState({ name: "", email: "", password: "" })
+  const [state, setState] = useState({ name: "", email: "", password: "", address: "",  })
   
   // handle state change value
   const handleStateChangeValue = (e) => {
@@ -16,11 +17,18 @@ const SignUp = () => {
  
   // handle sign up
   const handleSignUp = (e) => {
-    const { name, email, password } = state;
+    const { name, email, password , address } = state;
     e.preventDefault();
-    var a = createUserWithEmailAndPassword(auth, email, password).then((res) => {
-      console.log("res ===>", res)
-      alert("Succesfully User Created")
+     createUserWithEmailAndPassword(auth, email, password).then((res) => {
+       const user = res?.user
+       addDoc(collection(db, "users"), {
+         name,
+         email,
+         password,
+         address,
+         uid : user?.uid,
+       })
+       navigate("/signIn")
     }).catch((err) => {
       console.log("err ===>", err)
     })  
@@ -35,6 +43,7 @@ const SignUp = () => {
           <TextField onChange={(e) => handleStateChangeValue(e)} name='name' className='m-2 w-50 inputField' id="standard-basic" label="Enter Your Name" variant="standard" />
           <TextField onChange={(e) => handleStateChangeValue(e)} name='password' className='m-2 w-50 inputField' id="standard-basic" type={"password"} label="Enter Your Password" variant="standard" />
           <TextField onChange={(e) => handleStateChangeValue(e)} name='email' className='m-2 w-50 inputField' id="standard- basic" type={"email"} label="Enter Your Email" variant="standard" />
+          <TextField onChange={(e) => handleStateChangeValue(e)} name='address' className='m-2 w-50 inputField' id="standard- basic" type={"text"} label="Enter Your Address" variant="standard" />
           <Button className='my-5' variant="contained" onClick={(e) => handleSignUp(e)} >Sign Up</Button>
           <Button className='my-1' onClick={() => navigate("/signIn")} variant="contained">Already Have an Account?</Button>
 

@@ -5,6 +5,7 @@ import API from './API/API';
 import { useState , useEffect } from 'react';
 import SignIn from './Pages/SignUp&SingIn/SignIn';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import MainPage from './Pages/MainPage/MainPage';
 
 function App() {
 //   const [value, setValue] = useState([]);
@@ -77,7 +78,8 @@ function App() {
         <Routes>
           <Route path="/" element={<SignUp />}></Route>
           <Route path="/signIn" element={<SignIn />} ></Route>
-          <Route path="/admin" element={<Dashboard/>}></Route>
+          <Route path="/admin" element={<Dashboard />}></Route>
+          <Route path='/welcome' element={<MainPage/>} ></Route>
         </Routes>
       </BrowserRouter>
       
