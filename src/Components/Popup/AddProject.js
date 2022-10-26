@@ -1,16 +1,16 @@
 import React from "react";
 import { useState } from "react";
-
+import { collection, getDocs , addDoc , query , where} from "firebase/firestore"
+import { auth , db , storage } from "../../Firebase/firebase"
+import { getDownloadURL , ref , uploadBytes } from "firebase/storage";
 
 
 const AddProject = ({ setAddProject }) => {
 
-  const [logo, setLogo] = useState()
-  const [image, setImage] = useState()
-  const [state, setState] = useState({ "heading": "", "paragraph": "" })
+  const [image, setImage] = useState("")
+  const [state, setState] = useState({ "heading": "", "paragraph": "" , "price" : 0 })
 
   const [viewImage, setViewImg] = useState()
-  const [viewLogo, setViewLogo] = useState()
   
 
   // handle value changes
@@ -18,7 +18,25 @@ const AddProject = ({ setAddProject }) => {
     setState({...state , [e.target.name] : e.target.value})
   }
 
-    
+  
+  //  handle add product  
+  const handleAddProduct = (e) => {
+    const { heading, paragraph, price } = state;
+    e.preventDefault();
+    const storageRef = ref(storage, `product-image/${image.lastModified}`);
+
+    uploadBytes(storageRef, image).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        addDoc(collection(db, "products"), {
+          heading,
+          paragraph,
+          price,
+          image : url, 
+         }) 
+      })
+    })
+  }
+    console.log(image)
   return (
     <div>
       <div className="addProject">
@@ -40,14 +58,9 @@ const AddProject = ({ setAddProject }) => {
             </div>
 
 
-            <div className="addProject_updload">
-            <label>Upload Logo</label> 
-            {viewLogo && (
-            <div className="addProject_uploadedImg">
-            <img src={viewLogo} width="100px" alt="No Image Found" />
-            </div>
-            )}
-              <input type="file" onChange={(e) => { setLogo(e.target.files[0]); setViewLogo(URL.createObjectURL(e.target.files[0])) }} />
+            <div className="addProject_labelInput" >   
+            <label>Add Price</label>                            
+              <input name="price" type="text" onChange={(e) => handleValueChange(e)} placeholder="Price..."/>    
             </div>
 
             <div className="addProject_updload"> 
@@ -60,7 +73,7 @@ const AddProject = ({ setAddProject }) => {
             <input type="file" onChange={(e) => { setImage(e.target.files[0]); setViewImg(URL.createObjectURL(e.target.files[0])) }} />
             </div>
            
-              <button>Add Project</button>          
+              <button onClick={(e) => handleAddProduct(e)}>Add Project</button>          
           </div>
         </div>
       </div>

@@ -13,12 +13,12 @@
         position: relative;
         top: 40px;  
         width: 25%;
-        height: 400px;
+        height: 420px;
         background-color: grey;
-        display: flex;
+        display: flex;  
         flex-direction: column;  
         position: relative;
-        overflow: hidden;
+        // overflow: auto;
         
         
         img {
@@ -29,7 +29,31 @@
 
 
         button {
+            margin: 10px 0px;
             width: 40%;
+
+        }
+
+        h5 {
+            margin-top: 20px;
+            color: black;
+            font-size: 20px;
+        }
+
+        p {
+            color: white;
+            font-size: 15px;
+        }
+
+        span {
+            color: white;
         }
     }
+
+
+     &_card::-webkit-scrollbar {
+        display: none;
+    }
+
+    &_card::-webkit-scrollbar { width: 0 !important }
 }   
