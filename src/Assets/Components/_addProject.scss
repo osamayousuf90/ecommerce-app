@@ -125,7 +125,27 @@
             color: rgba(0, 0, 0, 0.801);
            }
 
+
+           input[type = "number"] {
+            height: 20px;
+            width: 100%;
+            border: none;
+            outline: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid rgb(148, 148, 148);
+            background-color:transparent;
+            margin: 20px 0px;
+            color: rgba(0, 0, 0, 0.801);
+           }
+
            input[type="text"]:focus{    
+            font-weight: bold;
+            color: rgba(41, 39, 39, 0.959);
+           }
+
+           input[type="number"]:focus{    
             font-weight: bold;
             color: rgba(41, 39, 39, 0.959);
            }

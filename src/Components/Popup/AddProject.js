@@ -8,7 +8,7 @@ import { getDownloadURL , ref , uploadBytes } from "firebase/storage";
 const AddProject = ({ setAddProject }) => {
 
   const [image, setImage] = useState("")
-  const [state, setState] = useState({ "heading": "", "paragraph": "" , "price" : 0 })
+  const [state, setState] = useState({ "heading": "", "paragraph": "" , "price" : 0 , "category" :  ""})
 
   const [viewImage, setViewImg] = useState()
   
@@ -21,7 +21,7 @@ const AddProject = ({ setAddProject }) => {
   
   //  handle add product  
   const handleAddProduct = (e) => {
-    const { heading, paragraph, price } = state;
+    const { heading, paragraph, price , category} = state;
     e.preventDefault();
     const storageRef = ref(storage, `product-image/${image.lastModified}`);
 
@@ -31,7 +31,8 @@ const AddProject = ({ setAddProject }) => {
           heading,
           paragraph,
           price,
-          image : url, 
+          image: url, 
+          category
          }) 
       })
     })
@@ -57,10 +58,16 @@ const AddProject = ({ setAddProject }) => {
               <textarea name="paragraph" onChange={(e) => handleValueChange(e)} placeholder="Paragraph..."></textarea>    
             </div>
 
+            
+            <div className="addProject_labelInput" >   
+            <label>Add Category</label>                            
+            <textarea name="category" onChange={(e) => handleValueChange(e)} placeholder="Category..."></textarea>    
+            </div>
+
 
             <div className="addProject_labelInput" >   
             <label>Add Price</label>                            
-              <input name="price" type="text" onChange={(e) => handleValueChange(e)} placeholder="Price..."/>    
+            <input name="price" type="number" onChange={(e) => handleValueChange(e)} placeholder="Price..."/>    
             </div>
 
             <div className="addProject_updload"> 
