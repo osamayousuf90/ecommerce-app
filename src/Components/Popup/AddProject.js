@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { collection, getDocs , addDoc , query , where  } from "firebase/firestore"
+import { collection, getDocs , addDoc , query , where} from "firebase/firestore"
 import { auth , db , storage } from "../../Firebase/firebase"
 import { getDownloadURL , ref , uploadBytes } from "firebase/storage";
 
@@ -23,27 +23,23 @@ const AddProject = ({ setAddProject }) => {
   //  handle add product  
   const handleAddProduct = (e) => {
     const { heading, paragraph, price } = state;
-    
     e.preventDefault();
     const storageRef = ref(storage, `product-image/${Date.now()}`);
 
-    uploadBytes(storageRef).then(() => {
-    
+    uploadBytes(storageRef, image).then(() => {
       getDownloadURL(storageRef).then((url) => {
-
         addDoc(collection(db, "products"), {
           heading,
           paragraph,
           price,
           image: url, 
-          category
+          category,
+          quantity : 0
         })
-
+        alert("Added Succsfully");
       }).catch(() => {
         console.log("ERROR")
       })
-
-
     })
   }
 

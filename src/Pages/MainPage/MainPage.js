@@ -4,25 +4,23 @@ import { useState, useEffect } from 'react'
 import { collection, getDocs, QuerySnapshot } from 'firebase/firestore'
 import { ref } from 'firebase/storage'
 import { db } from '../../Firebase/firebase'
-import NavSidebar from '../../Components/NavSidebar/NavSidebar'
 
 const MainPage = () => {
   const [value, setValue] = useState([]);
   const [cost, setCost] = useState();
   const [stateUpdate, setStateUpdate] = useState()
   const [list, setList] = useState([])
-  const [close , setClose] = useState(true)
 
 
   
 
  
-//     // handle add
-const handleAdd = (res) => {
-  setValue([...value, res]);  
-  totalCost();
-  setStateUpdate(!stateUpdate)
-}
+ // handle add
+// const handleAdd = (res) => {
+//   setValue([...value, res]);  
+//   totalCost();
+//   setStateUpdate(!stateUpdate)
+// }
   
 //   // handle remove
 //   const handleRemove = (res) => {
@@ -91,7 +89,6 @@ const handleAdd = (res) => {
 
     <div>
       <CardsSection list={list} />  
-      { close && <NavSidebar/> }
     </div>
 
   )
