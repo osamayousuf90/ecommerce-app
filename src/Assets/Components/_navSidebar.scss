@@ -1,0 +1,46 @@
+.navSidebar {
+    height: 100vh;
+    width: 30%;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    background-color: black;
+    z-index: 999;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+
+    .fa-x {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: white;
+        font-size: 20px !important;
+        z-index: 99;
+        cursor: pointer;
+    }
+
+    &_inner {
+        height: 20vh;      
+        top: 10%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: scroll;   
+
+        ::-webkit-scrollbar
+        {
+            display: none;
+            width: 0px;
+        }
+
+        h5 {
+            color: white;
+            font-size: 40px;
+            font-weight: 700 !important;
+        }
+     
+    }
+}

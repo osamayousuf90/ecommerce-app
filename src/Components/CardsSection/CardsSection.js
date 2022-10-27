@@ -1,20 +1,34 @@
 import React from 'react'
+import { db } from '../../Firebase/firebase'
+import { useEffect } from 'react'
+import { getDocs , collection } from 'firebase/firestore'
+import Navbar from '../../Components/Navbar/Navbar'
 
-const CardsSection = () => {
+
+const CardsSection = ({list}) => {
+  
   return (
     <div>
-        <div className="cardsSection">
-              
-              <div className="cardsSection_card">
-                  <img src="https://fresh-city.co/wp-content/uploads/2020/04/Best-Iranian-Apple-From-fresh-city-1024x684.jpg" alt="" />
-                  <h5>Apple</h5>
-                  <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt assumenda quidem voluptates maiores id facere ullam magni mollitia dolorum, ipsum reiciendis blanditiis? Facilis ex aut quo adipisci tempore porro nesciunt? </p>
+      <Navbar/>  
+      <div className="cardsSection">
 
-                  <span>Price 20$</span>
-                  <button>Add to Cart</button>
-              </div>
+          {list.map((res) => {
+       const { heading, paragraph, price, category } = res;
+
+        return (
+          <div className="cardsSection_card">
+              <img src="https://fresh-city.co/wp-content/uploads/2020/04/Best-Iranian-Apple-From-fresh-city-1024x684.jpg" alt="" />
+              <h5>{heading}</h5>
+              <p>{paragraph}</p>
+
+              <span>Price {price}$</span>
+              <button>Add to Cart</button>
+            </div>
+            )
+      }) }
+         </div>     
      
-        </div>     
+       
     </div>
   )
 }

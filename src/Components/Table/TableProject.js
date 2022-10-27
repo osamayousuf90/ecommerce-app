@@ -4,6 +4,8 @@ import AddProject from "../Popup/AddProject";
 import Detail from "../Popup/Detail";
 import DeleteProjectPopup from "../Popup/DeleteProjectPopup";
 import EditProjectPopup from "../Popup/EditProjectPopup";
+import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 const TableTestomonials = () => {
   const [searchVal, setSearchVal] = useState("");
@@ -12,8 +14,24 @@ const TableTestomonials = () => {
   const [imgPopup, setImgPopup] = useState(false);
   const [close2, setClose2] = useState(false);
   const [editProject, setEditProject] = useState(false);
-
   const [projectList, setProjectList] = useState([]);
+
+  // getting list
+  const gettingList = async () => {
+    const productArray = [];
+
+    getDocs(collection(db, "products")).then((snapShot) => {
+      snapShot.forEach((doc) => {
+        productArray.push({ ...doc.data(), id: doc.id });
+      });
+      setProjectList(productArray);
+    });
+  };
+
+  useEffect(() => {
+    gettingList();
+  }, []);
+
 
   return (
     <div>
@@ -50,30 +68,41 @@ const TableTestomonials = () => {
             <th>View</th>
             <th>Edit Item</th>
           </tr>
+          {projectList.map((res , index) => {
+            const { heading , paragraph , price , category , image } = res
+            return (
+              <>
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>
+                    {" "}
+                    <img
+                      src={image}
+                      alt=""
+                    />{" "}
+                  </td>
+                  <td>{heading}</td>
+                  <td>{paragraph}</td>
+                  <td>{price}$</td>
+                  <td>
+                    {" "}
+                    <button onClick={() => setClose2(true)}>Delete</button>{" "}
+                  </td>
 
-          <tr>
-            <td>1</td>
-            <td>
-              {" "}
-              <img src="https://i.stack.imgur.com/tseYw.png" alt="" />{" "}
-            </td>
-            <td>Banana</td>
-            <td>Bnana is very good for health</td>
-            <td>20$</td>
-            <td>
-              {" "}
-              <button onClick={() => setClose2(true)}>Delete</button>{" "}
-            </td>
-
-            <td>
-              {" "}
-              <button onClick={() => setImgPopup(true)}>View</button>{" "}
-            </td>
-            <td>
-              {" "}
-              <button onClick={() => setEditProject(true)}>Edit</button>{" "}
-            </td>
-          </tr>
+                  <td>
+                    {" "}
+                    <button onClick={() => setImgPopup(true)}>View</button>{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <button onClick={() => setEditProject(true)}>
+                      Edit
+                    </button>{" "}
+                  </td>
+                </tr>
+              </>
+            );
+          })}
         </table>
       </div>
 

@@ -59,6 +59,25 @@
     }
 
 
+    &_selector {
+        width: 100%;
+        position: relative;
+        bottom: 20px;    
+
+        select {
+            width: 100%;
+            cursor: pointer;    
+        }
+
+        label {
+            margin: 20px 0px;
+            color: rgb(22, 22, 22);   
+            font-size: 15px;
+            font-weight: bold !important; 
+        }
+    }
+
+
     &_fields {
         position: relative;
         top: 20px;  

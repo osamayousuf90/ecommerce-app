@@ -1,14 +1,20 @@
 import React from 'react'
-import Navbar from '../../Components/Navbar/Navbar'
 import CardsSection from '../../Components/CardsSection/CardsSection'
 import { useState, useEffect } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, QuerySnapshot } from 'firebase/firestore'
 import { ref } from 'firebase/storage'
+import { db } from '../../Firebase/firebase'
+import NavSidebar from '../../Components/NavSidebar/NavSidebar'
 
 const MainPage = () => {
   const [value, setValue] = useState([]);
   const [cost, setCost] = useState();
   const [stateUpdate, setStateUpdate] = useState()
+  const [list, setList] = useState([])
+  const [close , setClose] = useState(true)
+
+
+  
 
  
 //     // handle add
@@ -55,24 +61,39 @@ const handleAdd = (res) => {
 //       })
 //       setValue(a)
 //     } else {
-//     value[fIndex].quantity -= 1  
-//     totalCost()  
+//     value[fIndex].quantity -= 1
+//     totalCost()
 //     setStateUpdate(!stateUpdate)
 //     }
 //   }
+  
+  
 
+  // getting object
+  const gettingList = async () => {
+    const productArray = [];
 
+    getDocs(collection(db, "products")).then((querySnapShot) => {
+      querySnapShot.forEach((doc) => {
+        productArray.push({ ...doc.data(), id: doc.id })
+      })
+      setList(productArray)
+    })
 
-//   useEffect(() => {
-//    totalCost()
-//   }, [value])
+}
 
-     
+  useEffect(() => {
+  gettingList()
+   totalCost()
+  }, [value])
+
   return (
+
     <div>
-       <Navbar/>  
-       <CardsSection/>   
+      <CardsSection list={list} />  
+      { close && <NavSidebar/> }
     </div>
+
   )
 }
 

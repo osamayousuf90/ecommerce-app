@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { collection, getDocs , addDoc , query , where} from "firebase/firestore"
+import { collection, getDocs , addDoc , query , where  } from "firebase/firestore"
 import { auth , db , storage } from "../../Firebase/firebase"
 import { getDownloadURL , ref , uploadBytes } from "firebase/storage";
 
@@ -8,36 +8,45 @@ import { getDownloadURL , ref , uploadBytes } from "firebase/storage";
 const AddProject = ({ setAddProject }) => {
 
   const [image, setImage] = useState("")
-  const [state, setState] = useState({ "heading": "", "paragraph": "" , "price" : 0 , "category" :  ""})
+  const [state, setState] = useState({ "heading": "", "paragraph": "", "price": 0, "category": "" })
+  const [category , setCategory] = useState("")
 
   const [viewImage, setViewImg] = useState()
   
 
   // handle value changes
   const handleValueChange = (e) => {
-    setState({...state , [e.target.name] : e.target.value})
+    setState({...state , [e?.target?.name] : e?.target?.value})
   }
 
   
   //  handle add product  
   const handleAddProduct = (e) => {
-    const { heading, paragraph, price , category} = state;
+    const { heading, paragraph, price } = state;
+    
     e.preventDefault();
-    const storageRef = ref(storage, `product-image/${image.lastModified}`);
+    const storageRef = ref(storage, `product-image/${Date.now()}`);
 
-    uploadBytes(storageRef, image).then(() => {
+    uploadBytes(storageRef).then(() => {
+    
       getDownloadURL(storageRef).then((url) => {
+
         addDoc(collection(db, "products"), {
           heading,
           paragraph,
           price,
           image: url, 
           category
-         }) 
+        })
+
+      }).catch(() => {
+        console.log("ERROR")
       })
+
+
     })
   }
-    console.log(image)
+
   return (
     <div>
       <div className="addProject">
@@ -50,19 +59,24 @@ const AddProject = ({ setAddProject }) => {
             <div className="addProject_labelInput" >
             <label>Add Heading</label>              
             <input name="heading" onChange={(e) => handleValueChange(e)} type="text" placeholder="Heading..." />  
-            </div>       
+            </div>        
 
 
             <div className="addProject_labelInput" >   
             <label>Add Paragraph</label>                            
-              <textarea name="paragraph" onChange={(e) => handleValueChange(e)} placeholder="Paragraph..."></textarea>    
+            <textarea name="paragraph" onChange={(e) => handleValueChange(e)} placeholder="Paragraph..."></textarea>    
             </div>
 
             
-            <div className="addProject_labelInput" >   
-            <label>Add Category</label>                            
-            <textarea name="category" onChange={(e) => handleValueChange(e)} placeholder="Category..."></textarea>    
-            </div>
+            <div className="addProject_selector">
+            <label>Add Category</label>
+             <select onChange={(e) => setCategory(e.target.value)}>
+             <option value="Selecte Category" selected disabled>Select Category</option>    
+             <option value="Fruit">Fruit</option>
+             <option value="Electronic">Electronic</option>
+             <option value="Fashion">Fashion</option>
+             </select>
+             </div>
 
 
             <div className="addProject_labelInput" >   
