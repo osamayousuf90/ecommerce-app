@@ -26,7 +26,8 @@ const SignUp = () => {
          email,
          password,
          address,
-         uid : user?.uid,
+         uid: user?.uid,
+         is_Admin : false
        })
        navigate("/signIn")
     }).catch((err) => {

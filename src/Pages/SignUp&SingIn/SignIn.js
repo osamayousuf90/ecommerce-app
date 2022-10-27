@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../Firebase/firebase"
 import { useState } from 'react'
+import { getDocs , collection  } from 'firebase/firestore'
 
 
 const SignIn = () => {
   const [state, setState] = useState({ email: "", password: "" })
   const navigate = useNavigate()
+  const [usersList , setUsersList] = useState([])
 
   
     // handle state change value
@@ -18,17 +20,44 @@ const SignIn = () => {
    
 
   // handle sign in
-  const handleSignIn = () => {
+  const handleSignIn =  () => {
     const { email, password } = state;
-    signInWithEmailAndPassword(auth, email, password).then((res) => {
-      console.log("log in succes ===>", res);
-      navigate("/admin")
-    }).catch((err) => {
-      console.log("err =====>", err);
+    var userAdminArray = [];
+
+
+    getDocs(collection(db, "users")).then((querySnapShot) => {
+      querySnapShot.forEach((doc) => {
+        var user = doc.data();
+        userAdminArray.push(user)
+
+        var foundUserAdmin = userAdminArray?.find((res) => {
+          return res?.is_Admin === true
+        })
+   
+   
+        signInWithEmailAndPassword(auth, email, password).then((res) => {
+          console.log("res ===>", res)
+    
+        }).catch((err) => {
+          console.log(err);
+        })
+      })
+    
     })
+    
+
+      // signInWithEmailAndPassword(auth, email, password).then((res) => {
+      //   console.log("log in succes ===>", res);
+      //   navigate("/admin")
+      // }).catch((err) => {
+      //   console.log("err =====>", err);
+      // })
+
+  
   }
   
 
+    //  console.log("userAdminArray ===>", userAdminArray);
   return (
     <div> 
     <div className="signup container-fluid">
