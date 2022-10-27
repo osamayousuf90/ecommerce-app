@@ -36,7 +36,7 @@ const SignIn = () => {
    
    
         signInWithEmailAndPassword(auth, email, password).then((res) => {
-          console.log("res ===>", res)
+        //  if(foundUserAdmin)
     
         }).catch((err) => {
           console.log(err);
