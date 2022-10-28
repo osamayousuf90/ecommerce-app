@@ -1,15 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate , Link} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { auth } from '../../Firebase/firebase'
 
 const Sidebar = ({index}) => {
   const [select, setSelect] = useState(1);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/");
+    navigate("/signin");
     window.location.reload(false);
     localStorage.clear();
+    auth.signOut()
   }
 
   return (
