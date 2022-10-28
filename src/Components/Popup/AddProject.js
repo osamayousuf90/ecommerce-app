@@ -48,7 +48,7 @@ const AddProject = ({ setAddProject }) => {
       <div className="addProject">
         <div className="addProject_inner">
         <i onClick={() => setAddProject(false)} class="fa-solid fa-xmark"></i>          
-          <p>ADD PROJECT</p>
+          <p>ADD ITEM</p>
 
             <div className="addProject_fields">
   
@@ -90,7 +90,7 @@ const AddProject = ({ setAddProject }) => {
             <input type="file" onChange={(e) => { setImage(e.target.files[0]); setViewImg(URL.createObjectURL(e.target.files[0])) }} />
             </div>
            
-              <button onClick={(e) => handleAddProduct(e)}>Add Project</button>          
+              <button onClick={(e) => handleAddProduct(e)}>Add Item</button>          
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../Firebase/firebase";
 
-const Navbar = ({ setClose, value }) => {
+const Navbar = ({ setClose, itemStored }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -20,7 +20,7 @@ const Navbar = ({ setClose, value }) => {
         <div className="navbar_links">
           <p onClick={() => navigate("/welcome")}>Home</p>
           <p onClick={() => setClose(true)}>
-            Cart {value.length} <i class="fa-solid fa-cart-shopping"></i>
+            Cart {itemStored.length} <i class="fa-solid fa-cart-shopping"></i>
           </p>
           <p onClick={() => handleLogout()} >Log Out</p>
         </div>

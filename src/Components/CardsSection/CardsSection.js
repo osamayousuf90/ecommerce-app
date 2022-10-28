@@ -1,23 +1,21 @@
 import React from 'react'
-import { db } from '../../Firebase/firebase'
 import { useEffect } from 'react'
-import { getDocs , collection } from 'firebase/firestore'
 import Navbar from '../../Components/Navbar/Navbar'
 import { useState } from 'react'
 import NavSidebar from '../../Components/NavSidebar/NavSidebar'
-
+import { useNavigate } from 'react-router-dom'
 
 const CardsSection = ({ list }) => {
   const [close, setClose] = useState(false)
-  const [value, setValue] = useState([]);
+  const [itemStored, setItemStored] = useState([]);
   const [stateUpdate, setStateUpdate] = useState()
   const [cost, setCost] = useState();
+  const navigate = useNavigate()
   
 
   //   // total cost
   const totalCost = () => {
-    const a = value.reduce((accum, curr) => {
-      console.log("curr ==>", curr)
+    const a = itemStored.reduce((accum, curr) => {
       return accum + ( curr.price * curr.quantity );
     }, 0)
     setCost(a)
@@ -26,7 +24,7 @@ const CardsSection = ({ list }) => {
 
  // handle add
 const handleAdd = (res) => {
-  setValue([...value, res]);  
+  setItemStored([...itemStored, res]);  
   totalCost();
   setStateUpdate(!stateUpdate)
   }
@@ -34,51 +32,19 @@ const handleAdd = (res) => {
   
 //   // handle remove
   const handleRemove = (res) => {
-    const a = value.filter((item) => item?.heading !== res?.heading)      
-    setValue(a)
+    const a = itemStored.filter((item) => item?.heading !== res?.heading)      
+    setItemStored(a)
   }  
 
-
-//   // handle add quantity
-//   const handleAddQuantity = (res) => {
-//     const fIndex = value.findIndex((item) => item?.name === res?.name)
-//     value[fIndex].quantity += 1  
-//     totalCost()
-//     setStateUpdate(!stateUpdate)
-//   }
-
-
-  
-
-
-   
-
-    
-
-
-//   // handle decrease quantity
-//   const handleRemoveQuantity = (res) => {
-//     const fIndex = value.findIndex((item) => item?.name === res?.name)
-//     if(value[fIndex].quantity === 1) {
-//       const a = value.filter((item) => {
-//        return item?.name !== res?.name
-//       })
-//       setValue(a)
-//     } else {
-//     value[fIndex].quantity -= 1
-//     totalCost()
-//     setStateUpdate(!stateUpdate)
-//     }
-//   }
     
   useEffect(() => {
     totalCost()
-  }, [value])
+  }, [itemStored])
 
   
   return (
     <div>
-      <Navbar value={value} setClose={setClose}/>  
+      <Navbar itemStored={itemStored} setClose={setClose}/>  
       <div className="cardsSection">
 
         {list.map((res) => {
@@ -89,13 +55,13 @@ const handleAdd = (res) => {
               <h5>{heading}</h5>
               <p>{paragraph}</p>
               <span>Price {price}$</span>
-              { value?.some((item) => item?.heading === res?.heading) ? <button onClick={() => handleRemove(res)} >Remove</button> : <button onClick={() => handleAdd(res)}>Add to Cart</button> } 
+            {itemStored?.some((item) => item?.heading === res?.heading) ? <button onClick={() => handleRemove(res)} >Remove</button> : <button onClick={() => handleAdd(res)}>Add to Cart</button>} 
+            <button onClick={() => navigate(`/productView/${res?.heading}/${res?.paragraph}/${res?.id}/${res?.price}`)}>View</button>
             </div>
             )
       }) }
          </div>     
-      
-         {close && <NavSidebar totalCost={totalCost} setCost={setCost} setStateUpdate={setStateUpdate} cost={cost} value={value} setClose={setClose}/> }
+         {close && <NavSidebar list={list} setItemStored={setItemStored} stateUpdate={stateUpdate} setStateUpdate={setStateUpdate} totalCost={totalCost} cost={cost} itemStored={itemStored} setClose={setClose}/> }
     </div>
   )
 }

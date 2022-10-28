@@ -17,7 +17,7 @@ const TableTestomonials = () => {
   const [projectList, setProjectList] = useState([]);
 
   // getting list
-  const gettingList = async () => {
+  const gettingList = () => {
     const productArray = [];
 
     getDocs(collection(db, "products")).then((snapShot) => {
@@ -86,7 +86,7 @@ const TableTestomonials = () => {
                   <td>{price}$</td>
                   <td>
                     {" "}
-                    <button onClick={() => setClose2(true)}>Delete</button>{" "}
+                    <button onClick={() => { setClose2(true); setObj(res) }}>Delete</button>{" "}
                   </td>
 
                   <td>
@@ -95,7 +95,7 @@ const TableTestomonials = () => {
                   </td>
                   <td>
                     {" "}
-                    <button onClick={() => setEditProject(true)}>
+                    <button onClick={() => { setEditProject(true); setObj(res) }}>
                       Edit
                     </button>{" "}
                   </td>
@@ -108,8 +108,8 @@ const TableTestomonials = () => {
 
       {addProject && <AddProject setAddProject={setAddProject} />}
       {imgPopup && <Detail setImgPopup={setImgPopup} />}
-      <DeleteProjectPopup close2={close2} setClose2={setClose2} />
-      {editProject && <EditProjectPopup setEditProject={setEditProject} />}
+      <DeleteProjectPopup gettingList={gettingList} obj={obj} close2={close2} setClose2={setClose2} />
+      {editProject && <EditProjectPopup gettingList={gettingList} obj={obj} setEditProject={setEditProject} />}
     </div>
   );
 };

@@ -20,10 +20,10 @@ const SignIn = () => {
    
 
   // handle sign in
-  const handleSignIn =  () => {
+  const handleSignIn = () => {
+    
     const { email, password } = state;
     var userAdminArray = [];
-
 
     getDocs(collection(db, "users")).then((querySnapShot) => {
       querySnapShot.forEach((doc) => {
@@ -47,20 +47,10 @@ const SignIn = () => {
       })
     
     })
-    
-
-      // signInWithEmailAndPassword(auth, email, password).then((res) => {
-      //   console.log("log in succes ===>", res);
-      //   navigate("/admin")
-      // }).catch((err) => {
-      //   console.log("err =====>", err);
-      // })
-
   
   }
   
 
-    //  console.log("userAdminArray ===>", userAdminArray);
   return (
     <div> 
     <div className="signup container-fluid">

@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react'
 import { useState } from 'react';
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from '../../Firebase/firebase';
 
 
-
-
-const DeleteProjectPopup = ({setClose2 , close2 , obj , gettingProjectList}) => {
+const DeleteProjectPopup = ({setClose2 , close2 , obj , gettingList}) => {
 
   const rejectRef = useRef()  
     
@@ -13,6 +13,21 @@ const DeleteProjectPopup = ({setClose2 , close2 , obj , gettingProjectList}) => 
       setClose2(false)
     }
   }
+
+  // handle delete
+  const handleDelete = () => {
+    const docRef = doc(db, "products", obj?.id);
+
+    deleteDoc(docRef)
+    .then(() => {
+      alert("Deleted Succesfully")
+      setClose2(false)
+      gettingList()
+    })
+    .catch(error => {
+        console.log(error);
+    })
+  }   
 
 
 
@@ -26,7 +41,7 @@ const DeleteProjectPopup = ({setClose2 , close2 , obj , gettingProjectList}) => 
     <i onClick={() => setClose2(false)} class="fa-solid fa-xmark"></i>
       <h5>Are You Sure You Want To Delete This Project?</h5>
       <div className="rejectPopup_btns">
-        <button><i class="fa-solid fa-trash-can"></i> Delete</button>
+        <button onClick={handleDelete}><i class="fa-solid fa-trash-can"></i> Delete</button>
         <button onClick={() => setClose2(false)}>Cancel</button>
       </div>
     </div> 
