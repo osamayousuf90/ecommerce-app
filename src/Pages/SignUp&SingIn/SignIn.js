@@ -34,16 +34,16 @@ const SignIn = () => {
           return res?.is_Admin === true
         })
 
-        console.log("foundUserAdmin ===>", foundUserAdmin);
-  
+     
+
         signInWithEmailAndPassword(auth, email, password).then((res) => {
           if (foundUserAdmin?.uid === res?.user?.uid) {
-           navigate("/admin")
+            navigate("/admin")
           } else {
             navigate("/welcome")
          }
         }).catch((err) => {
-          alert(err);
+          // alert(err);
           console.log("err ===>", err);
         })
       })

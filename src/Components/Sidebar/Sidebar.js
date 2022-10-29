@@ -8,14 +8,10 @@ const Sidebar = ({index}) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-
-    auth.signOut().then((res) => {
+      // window.location.reload(true);
       navigate("/signin");
-      window.location.reload(false);
+      auth.signOut()
       localStorage.clear();
-    }).catch((err) => {
-      alert("Some Error")
-    })
   }
 
   return (

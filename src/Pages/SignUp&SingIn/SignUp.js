@@ -5,12 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import {
-  sendSignInLinkToEmail,
-  sendEmailVerification,
-  getAuth,
-  signInWithEmailAndPassword
-} from "firebase/auth";
+
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,7 +21,6 @@ const SignUp = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const auth = getAuth();
 
   // handle sign up
   const handleSignUp = (e) => {
@@ -44,7 +38,7 @@ const SignUp = () => {
           uid: user?.uid,
           is_Admin: false,
         });
-
+  
         alert("User Created Succesfully");
          navigate("/signIn")
       })

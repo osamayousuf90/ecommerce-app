@@ -7,12 +7,9 @@ const Navbar = ({ setClose, itemStored }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    auth.signOut().then((res) => {
+    auth.signOut()
     window.localStorage.clear();
     navigate("/signin")
-    }).catch(() => {
-      console.log("Some Error Occured");
-    })
   }  
 
   return (
