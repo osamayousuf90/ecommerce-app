@@ -5,7 +5,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { sendSignInLinkToEmail } from "firebase/auth";
+import {
+  sendSignInLinkToEmail,
+  sendEmailVerification,
+  getAuth,
+  signInWithEmailAndPassword
+} from "firebase/auth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,38 +26,16 @@ const SignUp = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
+  const auth = getAuth();
+
   // handle sign up
   const handleSignUp = (e) => {
     const { name, email, password, address } = state;
     e.preventDefault();
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        const actionCodeSettings = {
-          // URL you want to redirect back to. The domain (www.example.com) for this
-          // URL must be in the authorized domains list in the Firebase Console.
-          url: "http://localhost:3000/",
-          // This must be true.
-          handleCodeInApp: true,
-          iOS: {
-            bundleId: "com.example.ios",
-          },
-          android: {
-            packageName: "com.example.android",
-            installApp: true,
-            minimumVersion: "12",
-          },
-          dynamicLinkDomain: "example.page.link",
-        };
-
         const user = res?.user;
-        sendSignInLinkToEmail(auth, email, actionCodeSettings)
-          .then(() => {
-            alert("Email sended");
-          })
-          .catch(() => {
-            alert("Email did'nt send");
-          });
-
         addDoc(collection(db, "users"), {
           name,
           email,
@@ -61,12 +44,12 @@ const SignUp = () => {
           uid: user?.uid,
           is_Admin: false,
         });
+
         alert("User Created Succesfully");
-        //  navigate("/signIn")
+         navigate("/signIn")
       })
       .catch((err) => {
         alert(err);
-        console.log("err ===>", err);
       });
   };
 

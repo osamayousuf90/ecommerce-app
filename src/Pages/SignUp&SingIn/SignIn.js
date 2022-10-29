@@ -33,6 +33,8 @@ const SignIn = () => {
         var foundUserAdmin = userAdminArray?.find((res) => {
           return res?.is_Admin === true
         })
+
+        console.log("foundUserAdmin ===>", foundUserAdmin);
   
         signInWithEmailAndPassword(auth, email, password).then((res) => {
           if (foundUserAdmin?.uid === res?.user?.uid) {
