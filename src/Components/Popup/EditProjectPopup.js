@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 import { collection } from "firebase/firestore";
+import { ref } from "firebase/storage";
+import { storage } from "../../Firebase/firebase";
 
 const EditProjectPopup = ({ setEditProject, obj , gettingList}) => {
   const [inputImage, setInputImage] = useState();
-  const [state, setState] = useState({ heading: "", paragraph: "", price: "" });
-
-  // for viewing
   const [viewImage, setViewImg] = useState(obj?.image);
+  const [state, setState] = useState({ heading: "", paragraph: "", price: "" , image : "" });
+  
+
 
   // handle value changes
   const handleValueChange = (e) => {
@@ -21,11 +23,21 @@ const EditProjectPopup = ({ setEditProject, obj , gettingList}) => {
     const { heading, paragraph, price } = state;
     const docRef = doc(db, "products", obj?.id);
 
+
+    const storageRef = ref(storage, `product-image/${Date.now()}`);
+    // Create a child reference
+    const imageRef = storageRef.child(`images/${imageFile.name}`);
+
+    
     updateDoc(docRef, {
       "heading": heading,
       "paragraph" : paragraph,
-      "price" : price
+      "price": price,
+      "image" : inputImage
     })
+     
+      
+      
       .then(() => {
         gettingList()
         alert("Updated Succesfully");
@@ -41,6 +53,7 @@ const EditProjectPopup = ({ setEditProject, obj , gettingList}) => {
       heading: obj?.heading,
       paragraph: obj?.paragraph,
       price: obj?.price,
+      image : obj?.image
     });
   }, []);
 
