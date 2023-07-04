@@ -26,7 +26,7 @@ const EditProjectPopup = ({ setEditProject, obj , gettingList}) => {
 
     const storageRef = ref(storage, `product-image/${Date.now()}`);
     // Create a child reference
-    const imageRef = storageRef.child(`images/${imageFile.name}`);
+    // const imageRef = storageRef.child(`images/${imageFile.name}`);
 
     
     updateDoc(docRef, {
